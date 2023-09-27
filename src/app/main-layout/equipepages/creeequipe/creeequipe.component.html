@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Ajouter une équipe</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <form [formGroup]="equipeForm" (ngSubmit)="createEquipe()" class="mt-5">
+          <div class="row">
+            <!-- Team Name -->
+            <div class="form-group w-50">
+              <label class="col-form-label" for="name">Nom de l'équipe</label>
+              <div class="col-sm-10">
+                <input class="form-control" formControlName="name" id="name" name="name" placeholder="Nom de l'équipe" required type="text">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <!-- Employees -->
+            <div class="form-group col-10">
+              <label class="col-form-label">Membres de l'equipe</label>
+              <div class="col-sm-10">
+                <ng-select [items]="users" bindLabel="username" bindValue="id" [multiple]="true" placeholder="Selectionner les membres" formControlName="selectedUsers">
+                </ng-select>
+              </div>
+            </div>
+            <!-- Projects -->
+            <div class="form-group col-10">
+              <label class="col-form-label">Projet</label>
+              <div class="col-sm-10">
+                <ng-select [items]="projects" bindLabel="nom" bindValue="id" [multiple]="false" placeholder="Selectionner un projet" formControlName="selectedProjects">
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div style="text-align: right; margin-right: 40px;">
+            <button class="btn btn-info mt-5" type="submit">Créer équipe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

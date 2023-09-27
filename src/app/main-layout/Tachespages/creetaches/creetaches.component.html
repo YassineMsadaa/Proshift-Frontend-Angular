@@ -1,0 +1,104 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Créer Tâche</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <form (ngSubmit)="createTask()" [formGroup]="taskForm" class="mt-5">
+          <div class="row">
+            <!-- Task Name -->
+            <div class="form-group w-25">
+              <label class="col-form-label" for="taskName">Nom de la tâche</label>
+              <div class="col-sm-10">
+                <input
+                  class="form-control"
+                  formControlName="name"
+                  id="taskName"
+                  name="taskName"
+                  placeholder="Nom de la tâche"
+                  required
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <hr />
+          <!-- Task Priority -->
+          <div class="form-group w-50">
+            <label class="col-form-label" for="taskPriorite">Priorité de la tâche *</label>
+            <div class="col-sm-10">
+              <select
+                class="form-control"
+                formControlName="priorite"
+                id="taskPriorite"
+                name="taskPriorite"
+                required
+              >
+                <option value="FAIBLE">Faible</option>
+                <option value="MOYENNE_FAIBLE">Moyenne Faible</option>
+                <option value="MOYENNE">Moyenne</option>
+                <option value="MOYENNE_HAUTE">Moyenne Haute</option>
+                <option value="ÉLEVÉE">Élevée</option>
+              </select>
+            </div>
+          </div>
+          <!-- Task Description -->
+          <div class="form-group w-50">
+            <label class="col-form-label" for="taskDescription">Description</label>
+            <div class="col-sm-10">
+              <textarea
+                class="form-control"
+                formControlName="description"
+                id="taskDescription"
+                name="taskDescription"
+                placeholder="Description de la tâche"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+          </div>
+          <!-- Estimated Finish Date -->
+          <div class="form-group col-10">
+            <label class="col-form-label">Date et heure de fin estimée</label>
+            <div class="col-sm-10">
+              <input
+                class="form-control"
+                formControlName="dateFinEstimee"
+                name="dateFinEstimee"
+                placeholder="Date et heure de fin estimée"
+                required
+                type="datetime-local"
+              />
+            </div>
+          </div>
+          <!-- Employee (User) -->
+          <div class="form-group col-10">
+            <label class="col-form-label">Assigner tâche à :</label>
+            <div class="col-sm-10">
+              <ng-select
+                [items]="users"
+                bindLabel="username"
+                bindValue="id"
+                placeholder="Selectionner un employe"
+                formControlName="selectedUser"
+                (change)="onUserSelected($event)"
+              >
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.username }}
+                </ng-template>
+                <ng-template ng-notfound-tmp>
+                  <div *ngIf="projet?.equipe === null">
+                    Le projet n'est pas encore affecté à une équipe.
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+          <div style="text-align: right; margin-right: 40px;">
+            <button class="btn btn-info mt-5" type="submit">Créer Tâche</button>
+            <button class="btn btn-secondary mt-5" type="button" (click)="cancel()">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

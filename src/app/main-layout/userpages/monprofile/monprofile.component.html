@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <!-- Page title -->
+      <div class="my-5">
+        <h2>My Profile</h2>
+
+      </div>
+      <hr>
+      <mat-slide-toggle [(ngModel)]="user.checkin" (click)="onToggleClick()" color="primary">
+        <span *ngIf="user.checkin !== null">Pointer sortie</span>
+        <span *ngIf="user.checkin === null">Pointer presence</span>
+      </mat-slide-toggle>
+
+      <div *ngIf="user.checkin !== null">
+        <p>Present depuis {{ user.checkin | date:'short' }}</p>
+      </div>
+      <div class="text h6">
+        <a class="small" [routerLink]="'/main/mespresence'">Mes presences...</a>
+      </div>
+      <hr>
+      <!-- Form START -->
+      <form class="file-upload"  [formGroup]="userform" method="POST">
+        <div class="row mb-5 gx-5">
+          <!-- Contact detail -->
+          <div class="col-xxl-8 mb-5 mb-xxl-0">
+            <div class="bg-secondary-soft px-4 py-5 rounded">
+              <h4 class="mb-4 mt-0">Contact detail</h4>
+              <div class="row g-3">
+
+                <!-- First Name -->
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">Username</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="username"
+                    formControlName="username"
+                    [(ngModel)]="username"
+                    autofocus
+                  /></div>
+                <!-- Last name -->
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">email</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="firstName"
+                    formControlName="email"
+                    [(ngModel)]="email"
+                    autofocus
+                  /></div>
+                <!-- Phone number -->
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">Numero Telephone</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="numtel"
+                    formControlName="numTelephone"
+                    [(ngModel)]="user.numTelephone"
+                    autofocus
+                  />	</div>
+                <!-- Mobile number -->
+
+                <!-- Skype -->
+
+              </div> <!-- Row END -->
+            </div>
+          </div>
+
+
+
+          <!-- Upload profile -->
+
+        </div> <!-- Row END -->
+
+        <!-- Social media detail -->
+        <!-- Row END -->
+
+        <!-- button -->
+        <div class="gap-3 d-md-flex justify-content-md-end text-center">
+          <!-- <button type="button" class="btn btn-danger btn-lg">Delete profile</button>&nbsp; -->
+          <button type="button" class="btn btn-primary btn-lg" (click)="Update()">Update profile</button>
+        </div>
+      </form> <!-- Form END -->
+    </div>
+  </div>
+</div>

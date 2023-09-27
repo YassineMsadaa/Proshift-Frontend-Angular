@@ -1,0 +1,56 @@
+<!-- Outer Row -->
+<div class="row justify-content-center mt-xl-5">
+  <div class="col-xl-10 col-lg-12 col-md-9 ">
+    <div class="card o-hidden border-0 shadow-lg my-5 ">
+      <div class="card-body p-0">
+        <div class="row">
+          <!-- Nested Row within Card Body -->
+          <img class="col-lg-6 pl-lg-5 d-none d-lg-block " src="../../../assets/img/register.jpg" style="width: 700px; height: 450px; padding-top: 70px"/>
+          <div class="col-lg-6">
+            <div class="p-5">
+              <div class="text-center">
+               <h1 class="h4 text-gray-900 mb-4">Create an account!</h1>
+              </div>
+             <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm" class="user">
+               <div class="form-group row">
+                 <div class="col-sm-6 mb-3 mb-sm-0">
+                   <input type="text" class="form-control form-control-user" id="exampleUsertName"
+                          placeholder="Username (e.g., foulen.F)" formControlName="username">
+                 </div>
+                 <div class="col-sm-6">
+                   <input type="text" class="form-control form-control-user" id="exampleCin"
+                          placeholder="Enter the Cin number" formControlName="cin">
+                 </div>
+               </div>
+               <div class="form-group">
+                 <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                        placeholder="Addresse email" formControlName="email">
+               </div>
+               <div class="form-group row">
+                 <div class="col-sm-6 mb-3 mb-sm-0">
+                   <input type="password" class="form-control form-control-user"
+                          id="exampleInputPassword" placeholder="Mot de passe" formControlName="password">
+                 </div>
+                 <div class="col-sm-6">
+                   <input type="password" class="form-control form-control-user"
+                          id="exampleRepeatPassword" placeholder="Repeter mot de passe" formControlName="confirmPassword">
+                 </div>
+               </div>
+               <button type="submit" class="btn btn-primary btn-user btn-block">
+                 Create Account
+               </button>
+             </form>
+             <hr>
+             <div class="text-center">
+               <a class="small" href="forgot-password.html">Mot de passe oublié?</a>
+             </div>
+             <div class="text-center">
+               <a class="small" [routerLink]="'/auth/login'">Vous avez deja un compte? Login!</a>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

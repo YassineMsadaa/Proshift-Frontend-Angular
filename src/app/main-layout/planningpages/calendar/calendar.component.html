@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Planning</h1>
+  <!-- Form -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+
+      <div class="card-body">
+        <h2>Toutes les tâches ({{currentEvents.length}})</h2>
+
+        <!-- Tasks Table -->
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Date Assignation</th>
+            <th>Date Fin Estimée</th>
+            <th>Priorité</th>
+            <th>Terminé</th>
+            <th>Employé</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="filteredTaches.length > 0; else noTasks">
+            <tr *ngFor="let tache of filteredTaches">
+              <td>{{ tache.name }}</td>
+              <td>{{ tache.dateAssignation | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.dateFinEstimee | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.priorite }}</td>
+              <td>{{ tache.done ? 'Oui' : 'Non' }}</td>
+              <td>{{ tache.employee?.username }}</td>
+              <td>
+                <a (click)="openTache(tache)" class="btn btn-success btn-icon-split m-1">
+                    <span class="icon bg-transparent text-white-50">
+                      <i class="fa fa-search bg-transparent"></i>
+                    </span>
+                  <span class="text">Consulter</span>
+                </a>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+        <!-- No Tasks Message -->
+        <ng-template #noTasks>
+          <p>Aucune tâche trouvée.</p>
+        </ng-template>
+      </div>
+
+      <div class="row">
+        <div class="form-group col">
+          <div class="col-sm-12">
+            <button class="btn btn-secondary" type="button" (click)="cancel()">retour</button>
+          </div>
+        </div>
+        <div class="form-group col">
+          <div class="col-sm-12">
+            <label>
+              <input type='checkbox' [checked]='calendarVisible' (change)='handleCalendarToggle()'/>
+              basculer tout le calendrier
+            </label>
+          </div>
+        </div>
+        <div class="form-group col">
+          <div class="col-sm-12">
+            <label>
+              <input type='checkbox' [checked]='calendarOptions.weekends' (change)='handleWeekendsToggle()'/>
+              basculer les week-ends
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <full-calendar *ngIf='calendarVisible' [options]='calendarOptions'>
+          <ng-template #eventContent let-arg>
+            <b>{{ arg.timeText }}</b>
+            <i>{{ arg.event.title }}</i>
+          </ng-template>
+        </full-calendar>
+      </div>
+
+    </div>
+  </div>
+</div>

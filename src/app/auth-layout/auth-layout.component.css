@@ -1,0 +1,6 @@
+.ax {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Optional: Set the height of the container if needed */
+}

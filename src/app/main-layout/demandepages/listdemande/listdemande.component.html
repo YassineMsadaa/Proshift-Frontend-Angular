@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Liste des demandes</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="table">
+        <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="dataTable_length">
+                <label>Afficher
+                  <div class="row">
+                    <div class="col">
+                      <select [(ngModel)]="selectedType" (ngModelChange)="filterDemandes()" aria-controls="type" class="custom-select custom-select-sm" name="type">
+                        <option selected>Par type</option>
+                        <option value="Conge">Congé</option>
+                        <option value="Teletravail">Teletravail</option>
+                        <option value="Autorisation">Autorisation</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select [(ngModel)]="selectedStatus" (ngModelChange)="filterDemandes()" aria-controls="type" class="custom-select custom-select-sm" name="type">
+                        <option selected>Par statut</option>
+                        <option value="Acceptee">Acceptée</option>
+                        <option value="En_attante">En attente</option>
+                        <option value="Refusee">Refusée</option>
+                      </select>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_filter" id="dataTable_filter">
+                <label>
+                  <span>Rechercher:</span>
+                  <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" [(ngModel)]="searchQuery" (input)="filterDemandes()">
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table aria-describedby="dataTable_info" cellspacing="0" class="table table-bordered dataTable" id="dataTable" role="grid" style="width: 100%;">
+                <thead>
+                <tr role="row">
+                  <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">Employee</th>
+                  <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">Type demande</th>
+                  <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">Date début</th>
+                  <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">Statut</th>
+                  <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting" colspan="1" rowspan="1" style="width: 35%;" tabindex="0">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let demande of filteredListDemande">
+                  <td>{{demande.user?.username}}</td>
+                  <td>{{demande.type}}</td>
+                  <td>{{demande.dateDebut | dateOnly}}</td>
+                  <td>{{demande.status}}</td>
+                  <td>
+                    <a (click)="deleteDemande(demande)" class="btn btn-danger m-1 btn-icon-split">
+                        <span class="icon bg-transparent text-white-50">
+                          <i class="fas bg-transparent fa-trash"></i>
+                        </span>
+                    </a>
+                    <a (click)="openDemandeModal(demande)" class="btn btn-info btn-icon-split m-1">
+                        <span class="icon bg-transparent text-white-50">
+                          <i class="fas bg-transparent fa-eye"></i>
+                        </span>
+                      <span class="text">Consulter</span>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

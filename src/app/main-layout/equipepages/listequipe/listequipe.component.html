@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Liste des equipes</h1>
+
+  <!-- Add new equipe button -->
+  <button (click)="addNewEquipe()" class="btn btn-primary mb-3">Ajouter Equipe</button>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="table">
+        <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <!-- Search by Nom de Projet -->
+              <div class="dataTables_filter" id="dataTable_filter">
+                <label>
+                  <span>Rechercher par nom de projet:</span>
+                  <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" [(ngModel)]="searchQuery" (input)="filterEquipes()">
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table aria-describedby="dataTable_info" cellspacing="0" class="table table-bordered dataTable" id="dataTable" role="grid" style="width: 100%;">
+                <thead>
+                <tr role="row">
+                  <th class="sorting" tabindex="0">Nom equipe</th>
+                  <th class="sorting" tabindex="0">Chef de projet</th>
+                  <th class="sorting" style="width: 30%;" tabindex="0">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let equipe of filteredListEquipe">
+                  <td>{{ equipe.name }}</td>
+                  <td>{{ equipe.projectMaster.username }}</td>
+                  <td>
+                    <button (click)="updateEquipe(equipe)" class="btn btn-info btn-icon-split m-1">
+                      <span class="icon bg-transparent text-white-50">
+                        <i class="fas bg-transparent fa-edit"></i>
+                      </span>
+                      <span class="text">Modifier</span>
+                    </button>
+                    <button (click)="deleteEquipe(equipe.id)" class="btn btn-danger btn-icon-split m-1">
+                      <span class="icon bg-transparent text-white-50">
+                        <i class="fas bg-transparent fa-trash"></i>
+                      </span>
+                      <span class="text">Supprimer</span>
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+<!-- Sidebar -->
+<ul class="navbar-nav sidebar sidebar-dark accordion " id="accordionSidebar">
+
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main/home">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-laugh-wink"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">PROShift</div>
+  </a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider bg-info  my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+    <a class="nav-link" href="/main/home">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider bg-info">
+
+  <!-- Nav Item - liste equipe -->
+  <li class="nav-item"*ngIf="userRole === 'ROLE_RESPONSABLE'">
+    <a class="nav-link " href="/main/listequipe">
+      <i class="fas fa-fw fa-user-friends"></i>
+      <span>Liste des equipe</span>
+    </a>
+  </li>
+  <!-- Nav Item - Mon equipe -->
+  <li class="nav-item"*ngIf="userRole === 'ROLE_EMPLOYEE'">
+    <a class="nav-link " href="/main/monequipe">
+      <i class="fas fa-fw fa-user-friends"></i>
+      <span>Mon equipe</span>
+    </a>
+  </li>
+  <!-- Nav Item - Mes equipes -->
+  <li class="nav-item"*ngIf="userRole === 'ROLE_CHEF'">
+    <a class="nav-link " href="/main/mesequipeparchef">
+      <i class="fas fa-fw fa-user-friends"></i>
+      <span>Mes equipes</span>
+    </a>
+
+  <!-- Nav Item - liste projet -->
+  <li class="nav-item"*ngIf="userRole === 'ROLE_RESPONSABLE'">
+    <a class="nav-link " href="/main/listprojet">
+      <i class="fas fa-fw fa-laptop-code"></i>
+      <span>Liste des projets</span>
+    </a>
+  </li>
+  <!-- Nav Item - Mes projet -->
+  <li class="nav-item"*ngIf="userRole === 'ROLE_EMPLOYEE'">
+    <a class="nav-link " href="/main/mesprojet">
+      <i class="fas fa-fw fa-laptop-code"></i>
+      <span>Mes projets</span>
+    </a>
+  </li>
+  <!-- Nav Item - Mes projet -->
+  <li class="nav-item"*ngIf="userRole === 'ROLE_CHEF'">
+    <a class="nav-link " href="/main/mesprojetparchef">
+      <i class="fas fa-fw fa-laptop-code"></i>
+      <span>Mes projets</span>
+    </a>
+  </li>
+  <!-- Nav Item - Charts -->
+  <li class="nav-item" *ngIf="userRole === 'ROLE_EMPLOYEE'">
+    <a class="nav-link" href="/main/mesdemandes">
+      <i class="fas fa-fw fa-envelope"></i>
+      <span>Mes demande</span></a>
+  </li>
+  <li class="nav-item" *ngIf="userRole === 'ROLE_COORDINATEUR'">
+    <a class="nav-link" href="/main/mesdemandes">
+      <i class="fas fa-fw fa-envelope"></i>
+      <span>Mes demande</span></a>
+  </li>
+  <li class="nav-item" *ngIf="userRole === 'ROLE_CHEF'">
+    <a class="nav-link" href="/main/mesdemandes">
+      <i class="fas fa-fw fa-envelope"></i>
+      <span>Mes demande</span></a>
+  </li>
+  <!-- Nav Item - Charts -->
+  <li class="nav-item" *ngIf="userRole === 'ROLE_RESPONSABLE'">
+    <a class="nav-link" href="/main/listdemande">
+      <i class="fas fa-fw fa-envelope"></i>
+      <span>Liste des demande</span></a>
+  </li>
+  <!-- Nav Item - Charts -->
+  <li class="nav-item"*ngIf="userRole === 'ROLE_RESPONSABLE'">
+    <a class="nav-link" href="/main/listeevents">
+      <i class="fas fa-fw fa-gamepad"></i>
+      <span>Evenements</span></a>
+  </li>
+  <li class="nav-item"*ngIf="userRole === 'ROLE_CHEF'">
+    <a class="nav-link" href="/main/listeevents">
+      <i class="fas fa-fw fa-gamepad"></i>
+      <span>Evenements</span></a>
+  </li>
+  <li class="nav-item"*ngIf="userRole === 'ROLE_COORDINATEUR'">
+    <a class="nav-link" href="/main/listeevents">
+      <i class="fas fa-fw fa-gamepad"></i>
+      <span>Evenements</span></a>
+  </li>
+  <li class="nav-item"*ngIf="userRole === 'ROLE_EMPLOYEE'">
+    <a class="nav-link" href="/main/listeevents">
+      <i class="fas fa-fw fa-gamepad"></i>
+      <span>Evenements</span></a>
+  </li>
+  <!-- Nav Item - Charts -->
+
+  <li class="nav-item"*ngIf="userRole === 'ROLE_EMPLOYEE'">
+    <a class="nav-link" href="/main/listenote">
+      <i class="fas fa-fw fa-heartbeat"></i>
+      <span>Notes</span></a>
+  </li>
+  <li class="nav-item"*ngIf="userRole === 'ROLE_COORDINATEUR'">
+    <a class="nav-link" href="/main/listenote">
+      <i class="fas fa-fw fa-heartbeat"></i>
+      <span>Notes</span></a>
+  </li>
+
+  <!-- Nav Item - Charts -->
+  <li class="nav-item" *ngIf="userRole === 'ROLE_EMPLOYEE'">
+    <a class="nav-link" href="/main/">
+      <i class="fas fa-fw fa-gamepad"></i>
+      <span>Mes Evenement</span></a>
+  </li>
+
+  <!-- Nav Item - Utilities Collapse Menu -->
+  <li class="nav-item" *ngIf="userRole === 'ROLE_RESPONSABLE'">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+       aria-expanded="true" aria-controls="collapseUtilities">
+      <i class="fas fa-fw fa-user"></i>
+      <span>Personelles</span>
+    </a>
+    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+         data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="/main/listmembre">Membre de l'entreprise</a>
+        <a class="collapse-item" href="/main/userlist">Liste des utilisateur</a>
+        <a class="collapse-item" href="/main/presence">Liste des Presence</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider bg-info">
+
+  <!-- Heading -->
+  <div class="sidebar-heading" *ngIf="userRole !== 'ROLE_COORDINATEUR'">
+    Autres
+  </div>
+
+
+  <!-- Nav Item - Tables -->
+  <li class="nav-item" *ngIf="userRole === 'ROLE_RESPONSABLE'">
+    <a class="nav-link" href="/main/calendar">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Planning</span></a>
+  </li>
+  <li class="nav-item" *ngIf="userRole === 'ROLE_EMPLOYEE'">
+    <a class="nav-link" href="/main/calendar">
+      <i class="fas fa-fw fa-table"></i>
+      <span>Planning</span></a>
+  </li>
+  <li class="nav-item" *ngIf="userRole === 'ROLE_CHEF'">
+    <a class="nav-link" href="/main/calendar">
+      <i class="fas fa-fw fa-table"></i>
+      <span>planning</span></a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider bg-info d-none d-md-block"*ngIf="userRole !== 'ROLE_COORDINATEUR'">
+
+
+
+
+</ul>
+<!-- End of Sidebar -->

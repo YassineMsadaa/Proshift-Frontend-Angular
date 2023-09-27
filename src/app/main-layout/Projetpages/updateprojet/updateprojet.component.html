@@ -1,0 +1,211 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Modifier Projet</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <!-- Équipe -->
+        <div class="form-group ">
+          <label class="col-form-label" for="equipe">Équipe</label>
+          <div class="col-sm-10">
+
+            <label *ngIf="projet" class=" h4" disabled
+                   id="equipe">{{ projet.equipe?.name || "Projet non assignee a une équipe" }}</label>
+
+          </div>
+        </div>
+        <hr>
+        <!-- Project Details -->
+        <form (ngSubmit)="updateProjet()" [formGroup]="projetForm" class="mt-1">
+
+          <div class="row">
+            <div class="col">
+              <!-- Chef -->
+              <div class="form-group">
+                <label class="col-form-label" for="chef">Chef du projet</label>
+                <div class="col-sm-10">
+                  <ng-select
+                    [compareWith]="compareUsers"
+                    [items]="users"
+                    bindLabel="username"
+                    formControlName="chef"
+                    id="chef"
+                    name="chef"
+                    placeholder="Select a chef"
+
+                  >
+                  </ng-select>
+                </div>
+              </div>
+
+
+              <!-- Project Name -->
+              <div class="form-group ">
+                <label class="col-form-label" for="nom">Nom du projet</label>
+                <div class="col-sm-10">
+                  <input class="form-control" formControlName="nom" id="nom" name="nom" placeholder="Nom du projet"
+                          type="text">
+                </div>
+              </div>
+
+
+              <!-- Description -->
+              <div class="form-group  ">
+                <label class="col-form-label" for="description">Description</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" formControlName="description" id="description" name="description"
+                            placeholder="Description du projet"  rows="3"></textarea>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col">
+              <!-- Date Debut -->
+              <div class="form-group ">
+                <label class="col-form-label" for="dateDebut">Date Debut</label>
+                <div class="col-sm-10">
+                  <input class="form-control" formControlName="dateDebut" id="dateDebut" name="dateDebut"
+                         placeholder="Date Debut"  type="date">
+                </div>
+              </div>
+
+              <!-- Date Fin Estimée -->
+              <div class="form-group ">
+                <label class="col-form-label" for="dateFinEstimee">Date Fin Estimée</label>
+                <div class="col-sm-10">
+                  <input class="form-control" formControlName="dateFinEstimee" id="dateFinEstimee" name="dateFinEstimee"
+                         placeholder="Date Fin Estimée"  type="date">
+                </div>
+              </div>
+
+
+              <!-- Etat (Assuming you have an Etat enum, use a dropdown or radio buttons) -->
+              <div class="form-group  ">
+                <label class="col-form-label" for="etat">État</label>
+                <div class="col-sm-10">
+                  <!-- Use dropdown or radio buttons to select the Etat -->
+                  <!-- Example with dropdown -->
+                  <select class="form-control" formControlName="etat" id="etat" name="etat" >
+                    <option value="TERMINER">Terminé</option>
+                    <option value="ENCOURS">En cours</option>
+                    <option value="ANNULEE">Annulé</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <!-- Other Attributes (Read-Only) -->
+          <div *ngIf="projet" class="row">
+            <!-- Creation Date -->
+            <div class="form-group col ">
+              <label class="col-form-label">Date Création</label>
+              <div class="col-sm-10">
+                <p class="form-control-static">{{ projet.dateCreation | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+              </div>
+            </div>
+
+            <!-- Date Fin -->
+            <div class="form-group col">
+              <label class="col-form-label">Date fin</label>
+              <div class="col-sm-10">
+                <p
+                  class="form-control-static">{{ projet.dateFin ? (projet.dateFin | date: 'dd/MM/yyyy HH:mm:ss') : "Projet pas encore terminée" }}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Submit Button -->
+          <div style="text-align: right; margin-right: 40px;">
+            <button (click)="cancel()" class="btn btn-secondary mt-1 mr-2" type="button">Annuler</button>
+            <button class="btn btn-info mt-1" type="submit">Enregistrer les modifications</button>
+          </div>
+        </form>
+        <hr>
+
+
+        <!-- Filters and Search Bar -->
+        <div class="form-inline mb-3">
+          <!-- Task Status Filter -->
+          <div class="form-group">
+            <label class="col-form-label mr-2" for="taskStatusFilter">Filtrer par état :</label>
+            <div class="col-sm-10">
+              <select [(ngModel)]="taskStatusFilter" (ngModelChange)="applyFilters()" class="form-control" id="taskStatusFilter">
+                <option value="tous">Tous</option>
+                <option value="finished">Terminé</option>
+                <option value="notFinished">Non terminé</option>
+                <option value="enRetard">En retard</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Task Priority Filter -->
+          <div class="form-group">
+            <label class="col-form-label mr-2" for="taskPriorityFilter">Filtrer par priorité :</label>
+            <div class="col-sm-10">
+              <select [(ngModel)]="taskPriorityFilter" (ngModelChange)="applyFilters()" class="form-control" id="taskPriorityFilter">
+                <option value="tous">Tous</option>
+                <option value="FAIBLE">Faible</option>
+                <option value="MOYENNE_FAIBLE">Moyenne Faible</option>
+                <option value="MOYENNE">Moyenne</option>
+                <option value="MOYENNE_HAUTE">Moyenne Haute</option>
+                <option value="ÉLEVÉE">Élevée</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="form-group">
+            <label class="col-form-label mr-2" for="searchText">Rechercher par :</label>
+            <div class="col-sm-10">
+              <input [(ngModel)]="searchText" (ngModelChange)="applyFilters()" class="form-control" id="searchText" placeholder="nom tache / nom employé">
+            </div>
+          </div>
+
+          <!-- Add Task Button -->
+          <button (click)="openTask()" class="btn btn-success m-1">Ajouter Tâche</button>
+        </div>
+
+
+
+        <!-- Tasks Table -->
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Date Assignation</th>
+            <th>Date Fin Estimée</th>
+            <th>Priorité</th>
+            <th>Terminé</th>
+            <th>Employé</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="filteredTaches.length > 0; else noTasks">
+            <tr *ngFor="let tache of filteredTaches">
+              <td>{{ tache.name }}</td>
+              <td>{{ tache.dateAssignation | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.dateFinEstimee | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.priorite }}</td>
+              <td>{{ tache.done ? 'Oui' : 'Non' }}</td>
+              <td>{{ tache.employee?.username }}</td>
+              <td>
+                <button (click)="editTache(tache)" class="btn btn-sm btn-primary">Modifier</button>
+                <button (click)="deleteTache(tache)" class="btn btn-sm btn-danger ml-1">Supprimer</button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+
+        <!-- No Tasks Message -->
+        <ng-template #noTasks>
+          <p>Aucune tâche trouvée.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

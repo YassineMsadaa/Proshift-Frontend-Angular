@@ -1,0 +1,51 @@
+
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Liste des invité à l'Evenement</h4>
+    <button aria-label="Close" class="btn-close" type="button"></button>
+
+</div>
+<div class="row">
+    <div class="d-flex justify-content-center">
+        <h2 class="modal-title">{{event?.eventName}}</h2>
+    </div>
+    <div class="d-flex justify-content-end">
+        <p class="px-3">Prevu le :{{event?.datetime | date: 'yyyy-MM-dd HH:mm' }}</p>
+    </div>
+</div>
+  <!-- Add modal content here -->
+  <div class="card-body">
+    <div class="container-f px-lg-5">
+
+        <div class="row">
+
+            <div class="col-sm-10">
+                Coordinateur:<strong>{{event?.coordinateur?.email}}</strong>
+            </div>
+
+          <br>
+        <div class="row ">
+          <label class=" col-form-label"></label>
+          <div class="col-sm-10 mb-3">
+            Type :<strong> {{event?.type }}</strong>
+          </div>
+        </div>
+        <table class="table table-bordered" id="dataTable" style="width: 100%;">
+            <thead>
+              <tr>
+                <th class="table-header">Invitation ID</th>
+                <th class="table-header">Invitee</th>
+                <th class="table-header">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let invitation of event?.invitations">
+                <td>{{ invitation.id }}</td>
+                <td>{{ invitation.invitee?.email }}</td>
+                <td>{{ invitation.status }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Liste des membres</h1>
+  <div class="mb-4">
+    <button class="btn btn-primary btn-sm mr-2" type="button" (click)="addMember()">Ajouter membre</button>
+
+    <form action="/upload" method="post" enctype="multipart/form-data" style="display: inline-block;">
+      <!-- Form fields and file input -->
+      <input type="file" (change)="onFileSelected($event)" accept=".csv" #fileInput hidden>
+      <button class="btn btn-primary btn-sm mr-2" type="button" (click)="fileInput.click()">Ajouter membre par fichier Excel</button>
+    </form>
+
+    <button class="btn btn-primary btn-sm" type="button" (click)="downloadList()">Télécharger la liste</button>
+  </div>
+  <!-- DataTales Example -->
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="table">
+        <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="dataTable_length">
+                <label>Afficher
+                  <div class="row">
+                    <div class="col">
+                      <select aria-controls="type" class="custom-select custom-select-sm" [(ngModel)]="roleFilter" name="roleFilter" (change)="applyFilters()">
+                        <option value="Tous">Par rôle</option>
+                        <option value="EMPLOYEE">Employé</option>
+                        <option value="COORDINATEUR">Coordinateur</option>
+                        <option value="CHEF">Chef de projet</option>
+                        <option value="RESPONSABLE">Responsable</option>
+                      </select>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 w-25">
+              <div class="dataTables_filter" id="dataTable_filter">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-sm" placeholder="Rechercher par numéro de CIN" [(ngModel)]="cinSearch" (input)="searchByCIN()">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary btn-sm" type="button" (click)="applyFilters()">Rechercher</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table aria-describedby="dataTable_info" class="table table-bordered dataTable" id="dataTable" role="grid" style="width: 100%;">
+                <thead>
+                <tr role="row">
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Numéro de CIN
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Nom
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Prénom
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Rôle
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 15%;" tabindex="0">
+                    Action
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="filteredMembers.length > 0; else noMembers">
+                  <tr *ngFor="let member of filteredMembers">
+                    <td>{{ member.cin }}</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.lastName }}</td>
+                    <td>{{ member.role }}</td>
+                    <td>
+                      <a (click)="deleteMember(member)" class="btn btn-danger m-1 btn-icon-split">
+                          <span class="icon bg-transparent text-white-50">
+                            <i class="fas bg-transparent fa-trash"></i>
+                          </span>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+                </tbody>
+              </table>
+              <ng-template #noMembers>
+                <p>Aucun membre trouvé.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Mes taches</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <!-- Équipe -->
+
+        <!-- Filters and Search Bar -->
+        <div class="form-inline mb-3">
+          <!-- Task Status Filter -->
+          <div class="form-group">
+            <label class="col-form-label mr-2" for="taskStatusFilter">Filtrer par état :</label>
+            <div class="col-sm-10">
+              <select [(ngModel)]="taskStatusFilter" (ngModelChange)="applyFilters()" class="form-control" id="taskStatusFilter">
+                <option value="tous">Tous</option>
+                <option value="finished">Terminé</option>
+                <option value="notFinished">Non terminé</option>
+                <option value="enRetard">En retard</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Task Priority Filter -->
+          <div class="form-group">
+            <label class="col-form-label mr-2" for="taskPriorityFilter">Filtrer par priorité :</label>
+            <div class="col-sm-10">
+              <select [(ngModel)]="taskPriorityFilter" (ngModelChange)="applyFilters()" class="form-control" id="taskPriorityFilter">
+                <option value="tous">Tous</option>
+                <option value="FAIBLE">Faible</option>
+                <option value="MOYENNE_FAIBLE">Moyenne Faible</option>
+                <option value="MOYENNE">Moyenne</option>
+                <option value="MOYENNE_HAUTE">Moyenne Haute</option>
+                <option value="ÉLEVÉE">Élevée</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="form-group">
+            <label class="col-form-label mr-2" for="searchText">Rechercher par :</label>
+            <div class="col-sm-10">
+              <input [(ngModel)]="searchText" (ngModelChange)="applyFilters()" class="form-control" id="searchText" placeholder="nom tache / nom employé">
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <!-- Tasks Table -->
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Date Assignation</th>
+            <th>Date Fin Estimée</th>
+            <th>Priorité</th>
+            <th>Terminé</th>
+            <th>Employé</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="filteredTaches.length > 0; else noTasks">
+            <tr *ngFor="let tache of filteredTaches">
+              <td>{{ tache.name }}</td>
+              <td>{{ tache.dateAssignation | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.dateFinEstimee | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.priorite }}</td>
+              <td>{{ tache.done ? 'Oui' : 'Non' }}</td>
+              <td>{{ tache.employee?.username }}</td>
+              <td>
+                <button (click)="editTache(tache)" class="btn btn-sm btn-primary">Modifier</button>
+                <button (click)="deleteTache(tache)" class="btn btn-sm btn-danger ml-1">Supprimer</button>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+
+        <!-- No Tasks Message -->
+        <ng-template #noTasks>
+          <p>Aucune tâche trouvée.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

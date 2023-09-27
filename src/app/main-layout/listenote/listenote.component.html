@@ -1,0 +1,79 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Liste des Notes</h1>
+  
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="col-sm-12 p-2">
+        <button class="btn btn-info float-right" routerLink="/main/ajouternote"  id="ajouternote" nom="ajouternote">Ajouter Note</button>
+     
+  </div>
+      <div class="card-body">
+       
+        <div class="table ">
+  
+          <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+          
+            <div class="row">
+              <div class="col-sm-12">
+                <table aria-describedby="dataTable_info" cellspacing="0" class="table table-bordered dataTable"
+                       id="dataTable" role="grid"
+                       style="width: 100%;">
+                  <thead>
+                  <tr role="row">
+                    <th aria-controls="dataTable" aria-label="Name: activate to sort column descending"
+                        aria-sort="ascending" class="sorting sorting_asc" colspan="1"
+                        rowspan="1" style="width: 16%;" tabindex="0">
+                      Titre
+                    </th>
+                    <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting"
+                        colspan="1" rowspan="1"
+                        style="width: 61px;" tabindex="0">Description
+                    </th>
+                    <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting"
+                        colspan="1" rowspan="1"
+                        style="width: 61px;" tabindex="0">Coordinateur
+                    </th>
+  
+                    <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting"
+                        colspan="1" rowspan="1"
+                        style="width: 35%;" tabindex="0">Action
+                    </th>
+  
+                  </tr>
+                  </thead>
+  
+                  <tbody>
+                  <tr *ngFor="let d of listeNote  ">
+                    <td class="sorting_1">{{d.titre}}</td>
+                    <td>{{d.description}}</td>
+                    <td>{{d.coordinateur.email }}</td>
+                    <td>
+                      <a (click)="deleteNote(d)" class="btn btn-danger m-1 btn-icon-split">
+                            <span class="icon bg-transparent text-white-50">
+                                <i class="fas bg-transparent fa-trash"></i>
+                            </span>
+                      </a>
+                      <a (click)="OpenUpdateModal(d)" class="btn btn-success btn-icon-split m-1">
+                          <span class="icon bg-transparent text-white-50">
+                              <i class="fa fa-edit bg-transparent"></i>
+                          </span>
+                        <span class="text">Modifier</span>
+                      </a>
+  
+                     
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+ 
+  

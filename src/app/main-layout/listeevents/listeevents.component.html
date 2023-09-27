@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Liste des Evenements</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="col-sm-12 p-2">
+      <button class="btn btn-info float-right" routerLink="/main/ajouterevent" id="ajouterevent" nom="ajouterevent">
+        Ajouter Evenements
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="table">
+        <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+          <div class="row">
+            <div class="col-sm-12">
+              <table aria-describedby="dataTable_info" class="table table-bordered dataTable" id="dataTable" role="grid"
+                     style="width: 100%;">
+                <thead>
+                <tr role="row">
+                  <th class="sorting sorting_asc" tabindex="0" aria-label="Name: activate to sort column descending"
+                      aria-sort="ascending" colspan="1" rowspan="1" style="width: 16%;">
+                    Name
+                  </th>
+                  <th class="sorting" tabindex="0" aria-label="Type: activate to sort column ascending" colspan="1"
+                      rowspan="1" style="width: 61px;">
+                    Type
+                  </th>
+                  <th class="sorting" tabindex="0" aria-label="Date: activate to sort column ascending" colspan="1"
+                      rowspan="1" style="width: 61px;">
+                    Date
+                  </th>
+                  <th class="sorting" tabindex="0" aria-label="Coordinateur: activate to sort column ascending"
+                      colspan="1" rowspan="1" style="width: 61px;">
+                    Coordinateur
+                  </th>
+                  <th class="sorting" tabindex="0" aria-label="Action: activate to sort column ascending" colspan="1"
+                      rowspan="1" style="width: 35px;">
+                    Action
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of liste">
+                  <td class="sorting_1">{{ d.eventName }}</td>
+                  <td>{{ d.type }}</td>
+                  <td>{{ d.datetime | date: 'yyyy-MM-dd HH:mm' }}</td>
+                  <td>{{ d.coordinateur.username }}</td>
+                  <td>
+                    <a (click)="delete(d)" class="btn btn-danger m-1 btn-icon-split">
+                        <span class="icon bg-transparent text-white-50">
+                          <i class="fas bg-transparent fa-trash"></i>
+                        </span>
+                    </a>
+                    <a (click)="openDetailsModal(d)" class="btn btn-info btn-icon-split m-1">
+                         <span class="icon bg-transparent text-white-50">
+                                <i class="fa fa-info bg-transparent"></i>
+                           </span>
+                    </a>
+                    <a (click)="openUpdateModal(d)" class="btn btn-success btn-icon-split m-1">
+                     <span class="icon bg-transparent text-white-50">
+                        <i class="fa fa-edit bg-transparent"></i>
+                       </span>
+                      <span class="text">Modifier</span>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

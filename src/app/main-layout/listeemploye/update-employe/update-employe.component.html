@@ -1,0 +1,133 @@
+
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modifier Employee</h4>
+    <button aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+  <!-- Add modal content here -->
+  <div class="card-body">
+    <div class="container-f px-lg-5">
+      <form (ngSubmit)="updateUser()" [formGroup]="userForm">
+        <div class="row">
+          <div class="col-sm-5 ">
+            <label class=" col-form-label">Nom:</label>
+            <input  type="text"  formControlName="nom" class="form-control"  value="{{user?.nom}}">
+            <div *ngIf="userForm.controls['nom'].invalid && userForm.controls['nom'].touched" class="text-danger">
+                Nom est requis.
+              </div>  
+        </div>
+          <div class="col-sm-5 ">
+            <label class=" col-form-label">Prenom :</label>
+            <input  type="text" formControlName="prenom" class="form-control" value=" {{user?.prenom }}">
+            <div *ngIf="userForm.controls['prenom'].invalid && userForm.controls['prenom'].touched" class="text-danger">
+                Prenom est requis.
+              </div>  
+        </div>
+       </div>
+        <div class="row ">
+            <div class="col-sm-10 ">
+                <label class=" col-form-label">Cin :</label>
+
+              <input  type="text" formControlName="cin" class="form-control" value=" {{user?.cin }}">
+              <div *ngIf="userForm.controls['cin'].invalid && userForm.controls['cin'].touched" class="text-danger">
+                Cin est requis.
+              </div>
+            </div>
+          </div>
+
+          <div class="row ">
+            <div class="col-sm-10 ">
+                <label class=" col-form-label">Matricule :</label>
+
+              <input  type="text" formControlName="matricule" class="form-control" value=" {{user?.matricule}}">
+              <div *ngIf="userForm.controls['matricule'].invalid && userForm.controls['matricule'].touched" class="text-danger">
+                Matricule est requis.
+              </div>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-sm-10 ">
+                <label class=" col-form-label">Date de Naissance :</label>
+              <input  type="date" formControlName="dateNaissance" class="form-control" value=" {{user?.dateNaissance}}">
+              <div *ngIf="userForm.controls['dateNaissance'].errors?.['dateLessThanToday'] && userForm.controls['dateNaissance'].touched" class="text-danger">
+                Date de Naissance doit être antérieure à aujourd'hui.
+              </div>
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-5 ">
+              <label class=" col-form-label">Adresse Mail:</label>
+              <input  type="text"  formControlName="email" class="form-control"  value="{{user?.email}}">
+              <div *ngIf="userForm.controls['email'].invalid && userForm.controls['email'].touched" class="text-danger">
+                Adresse Mail est requise.
+              </div>
+            </div>
+            <div class="col-sm-5 ">
+              <label class=" col-form-label">Telephone :</label>
+              <input  type="text" formControlName="numTelephone" class="form-control" value=" {{user?.numTelephone }}">
+              <div *ngIf="userForm.controls['numTelephone'].invalid && userForm.controls['numTelephone'].touched" class="text-danger">
+                Telephone est requis.
+              </div>
+            </div>
+         </div>
+         <div class="row ">
+            <div class="col-sm-10">
+                <label class=" col-form-label">Adresse :</label>
+
+              <input  type="text" formControlName="adresse" class="form-control" value=" {{user?.adresse}}">
+              <div *ngIf="userForm.controls['adresse'].invalid && userForm.controls['adresse'].touched" class="text-danger">
+                Adresse est requise.
+              </div>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-sm-10 ">
+                <label class=" col-form-label">Date d'embauche :</label>
+
+              <input  type="date" formControlName="dateEmbauche" class="form-control" value=" {{user?.dateEmbauche}}">
+              
+              <div *ngIf="userForm.controls['dateEmbauche'].errors?.['dateLessThanOrEqualToday'] && userForm.controls['dateEmbauche'].touched" class="text-danger">
+                Date d'embauche doit être antérieure ou égale à aujourd'hui.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group ">
+              <label class="col-form-label" for="type">Departement</label>
+              
+              <div class="col-sm-10">
+                  <select id="departement" name="departement" formControlName="departement" class="form-control">
+                      <option *ngFor="let key of departementEnumKeys" [value]="key" [selected]="key === user?.departement">{{key}}</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group ">
+              <label class="col-form-label" for="etatCivil">Etat Civile</label>
+              
+              <div class="col-sm-10">
+                  <select id="etatCivil" name="etatCivil" formControlName="etatCivil" class="form-control">
+                      <option *ngFor="let key of etatCivileEnumKeys" [value]="key" [selected]="key === user?.etatCivil">{{key}}</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group ">
+              <label class="col-form-label" for="type">Poste</label>
+              
+              <div class="col-sm-10">
+                  <select id="poste" name="poste" formControlName="poste" class="form-control">
+                      <option *ngFor="let key of posteEnumKeys" [value]="key" [selected]="key === user?.poste">{{key}}</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+            <br>
+            <div style="text-align: right; margin-right: 40px;">
+                <button type="submit" class="btn btn-info mb-2" [disabled]="userForm.invalid">Modifier</button>
+              </div>
+      </form>
+    </div>
+  </div>

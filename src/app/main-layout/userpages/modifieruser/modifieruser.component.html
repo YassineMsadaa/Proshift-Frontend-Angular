@@ -1,0 +1,155 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Modifier un utilisateur</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-f px-lg-5">
+        <form class="mt-5" [formGroup]="userForm" (ngSubmit)="updateUser()">
+
+
+          <div class="form-group">
+            <label class="col-form-label" for="nom">Nom</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="nom" id="nom" placeholder="Nom" required type="text">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="prenom">Prénom</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="prenom" id="prenom" placeholder="Prénom" required type="text">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="email">Email</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="email" id="email" placeholder="Email" required type="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="roles">Rôles</label>
+            <div class="col-sm-10">
+              <select class="form-control" formControlName="roles" id="roles" required>
+                <option selected disabled>Sélectionner un rôle</option>
+                <option value="ROLE_EMPLOYEE">Employee</option>
+                <option value="ROLE_COORDINATEUR">Coordinateur</option>
+                <option value="ROLE_CHEF">chef de projet</option>
+                <option value="ROLE_RESPONSABLE">Responsable</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="cin">CIN</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="cin" id="cin" placeholder="CIN" required type="text">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="dateNaissance">Date de naissance</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="dateNaissance" id="dateNaissance" placeholder="Date de naissance" required type="date">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="numTelephone">Numéro de téléphone</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="numTelephone" id="numTelephone" placeholder="Numéro de téléphone" required type="number">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="adresse">Adresse</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="adresse" id="adresse" placeholder="Adresse" required type="text">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="dateEmbauche">Date d'embauche</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="dateEmbauche" id="dateEmbauche" placeholder="Date d'embauche" required type="date">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="urgenceNom">Nom contacte d'urgence</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="urgenceNom" id="urgenceNom" placeholder="Nom d'urgence" required type="text">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="urgenceNum">Numéro contacte d'urgence</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="urgenceNum" id="urgenceNum" placeholder="Numéro d'urgence" required type="number">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="congeSolde">Solde congé</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="congeSolde" id="congeSolde" placeholder="Solde congé" required type="text">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="poste">Poste</label>
+            <div class="col-sm-10">
+              <select class="form-control" formControlName="poste" id="poste" required>
+                <option selected disabled>Sélectionner un poste</option>
+                <option value="TECHNICIEN">Technicien</option>
+                <option value="INGENIEUR">Ingenieur</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="etatCivil">État civil</label>
+            <div class="col-sm-10">
+              <select class="form-control" formControlName="etatCivil" id="etatCivil" required>
+                <option selected disabled>Sélectionner un état civil</option>
+                <option value="CELIBATAIRE">Celibataire</option>
+                <option value="MARIE">Marié</option>
+                <option value="DIVORCE">Divorcé</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="departement">Département</label>
+            <div class="col-sm-10">
+              <select class="form-control" formControlName="departement" id="departement" required>
+                <option selected disabled>Sélectionner un département</option>
+                <option value="MOBDEV">Developpement mobile</option>
+                <option value="WEBDEV">Develeppement web</option>
+                <option value="RH">Resource humaine</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="approved">Approuvé</label>
+            <div class="col-sm-10">
+              <input class="form-check-input" formControlName="approved" id="approved" type="checkbox">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label" for="blocked">Bloqué</label>
+            <div class="col-sm-10">
+              <input class="form-check-input" formControlName="blocked" id="blocked" type="checkbox">
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-right: 40px;">
+            <button class="btn btn-info mt-5">Mettre à jour l'utilisateur</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Ma Tâche</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <!-- Task Details -->
+
+          <div class="row">
+            <!-- Project Name -->
+            <div class="form-group w-50">
+              <label class="col-form-label" >Nom du projet</label>
+              <div class="col-sm-10">
+                <p class="form-control-static">{{ tacheForm.value.projet?.nom }}</p>
+              </div>
+            </div>
+            <!-- Task Name -->
+            <div class="form-group w-50">
+              <label class="col-form-label">Nom de la tâche</label>
+              <div class="col-sm-10">
+                <p class="form-control-static">{{ tacheForm.value.name }}</p>
+              </div>
+            </div>
+
+            <!-- Task Priority -->
+            <div class="form-group w-50">
+              <label class="col-form-label">Priorité de la tâche </label>
+              <div class="col-sm-10">
+                <p class="form-control-static">{{ tacheForm.value.priorite }}</p>
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <div class="row">
+
+            <!-- Task Description -->
+            <div class="form-group ">
+              <label class="col-form-label">Description</label>
+              <div class="col">
+                <p class="form-control-static">{{ tacheForm.value.description }}</p>
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+
+          <div class="row">
+
+            <!-- Date Assignation -->
+            <div class="form-group w-50">
+              <label class="col-form-label">Date d'assignation</label>
+              <div>
+                <p
+                  class="form-control-static">{{ tacheForm.value.dateAssignation ? (tache.dateAssignation | date: 'dd/MM/yyyy HH:mm:ss') : "Tâche pas encore assignée" }}</p>
+              </div>
+            </div>
+
+            <!-- Estimated Finish Date -->
+            <div class="form-group w-50">
+              <label class="col-form-label" >Date et heure de fin estimée</label>
+              <div class="col-sm-10">
+                <p class="form-control-static">{{ tacheForm.value.dateFinEstimee | date: 'yyyy-MM-dd HH:mm:ss' }}</p>
+              </div>
+            </div>
+          </div>
+
+
+
+        <hr>
+
+        <!-- Other Attributes (Read-Only) -->
+        <div *ngIf="tache " class="row">
+
+
+
+        </div>
+
+        <!-- Other Attributes (Read-Only) -->
+        <div *ngIf="tache" class="row">
+          <!-- Creation Date -->
+          <div class="form-group w-50">
+            <label class="col-form-label">Date de création</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ tache.dateCreation | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+            </div>
+          </div>
+
+          <!-- Date Fin -->
+          <div class="form-group w-50">
+            <label class="col-form-label">Date de fin</label>
+            <div class="col-sm-10">
+              <p
+                class="form-control-static">{{ tache.dateFin ? (tache.dateFin | date: 'dd/MM/yyyy HH:mm:ss') : "Tâche pas encore terminée" }}</p>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+          <!-- Submit and Cancel Buttons -->
+          <div class="row">
+            <div class="form-group col ">
+              <div class="col-sm-10">
+                <button class="btn btn-secondary mt-5" type="button" (click)="cancel()">retour</button>
+              </div>
+            </div>
+            <!-- Task Status -->
+            <div class="form-group  col" *ngIf="tache?.employee?.id === userId ">
+              <label class="col-form-label">La tâche est : {{ tacheForm.value.done ? 'terminée' : 'en cours' }}</label>
+              <div class="col-sm-10">
+                <button (click)="toggleTaskStatus()" [ngClass]="{ 'btn-outline-secondary': !tacheForm.value.done, 'btn-outline-danger': tacheForm.value.done }"
+                        class="btn btn-block"
+                        type="button">
+                  {{ tacheForm.value.done ? 'Marquer la tâche comme en cours' : 'Marquer la tâche comme terminée' }}
+                </button>
+              </div>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>

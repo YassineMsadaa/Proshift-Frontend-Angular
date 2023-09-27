@@ -1,0 +1,73 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Liste des Employees</h1>
+  
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+
+      <div class="card-body">
+       
+        <div class="table ">
+  
+          <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+          
+            <div class="row">
+              <div class="col-sm-12">
+                <table aria-describedby="dataTable_info" cellspacing="0" class="table table-bordered dataTable"
+                       id="dataTable" role="grid"
+                       style="width: 100%;">
+                  <thead>
+                  <tr role="row">
+                    <th aria-controls="dataTable" aria-label="Name: activate to sort column descending"
+                        aria-sort="ascending" class="sorting sorting_asc" colspan="1"
+                        rowspan="1" style="width: 16%;" tabindex="0">
+                      Cin
+                    </th>
+                    <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting"
+                        colspan="1" rowspan="1"
+                        style="width: 61px;" tabindex="0">Nom
+                    </th>
+                    <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting"
+                    colspan="1" rowspan="1"
+                    style="width: 61px;" tabindex="0">Prenom
+                </th>
+                   
+                    <th aria-controls="dataTable" aria-label="Position: activate to sort column ascending" class="sorting"
+                        colspan="1" rowspan="1"
+                        style="width: 35%;" tabindex="0">Action
+                    </th>
+  
+                  </tr>
+                  </thead>
+  
+                  <tbody>
+                  <tr *ngFor="let d of listemployee  ">
+                    <td class="sorting_1">{{d.cin}}</td>
+                    <td>{{d.nom}}</td>
+                    
+                    <td>{{d.prenom }}</td>
+                    <td>
+                      <a (click)="OpenUpdateModal(d)" class="btn btn-success btn-icon-split m-1">
+                          <span class="icon bg-transparent text-white-50">
+                              <i class="fa fa-edit bg-transparent"></i>
+                          </span>
+                        <span class="text">Modifier</span>
+                      </a>
+                     
+  
+                     
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+ 
+  

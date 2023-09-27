@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Mes projets</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="table">
+        <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="dataTable_length">
+                <label>Afficher
+                  <div class="row">
+                    <div class="col">
+                      <select aria-controls="type" class="custom-select custom-select-sm" [(ngModel)]="etatFilter" name="etatFilter" >
+                        <option value="Tous">Par état</option>
+                        <option value="EN_COURS">En cours</option>
+                        <option value="TERMINE">Terminé</option>
+                        <option value="ANNULE">Annulé</option>
+                      </select>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 w-25">
+              <div class="dataTables_filter" id="dataTable_filter">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-sm" placeholder="Rechercher par nom du projet" [(ngModel)]="nameSearch" >
+                  <div class="input-group-append">
+                    <button class="btn btn-primary btn-sm" type="button" >Rechercher</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Ajouter un projet button -->
+            <div class="text-right mb-3">
+              <button class="btn btn-primary" (click)="ajouterProjet()">Ajouter un projet</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table aria-describedby="dataTable_info" class="table table-bordered dataTable" id="dataTable" role="grid" style="width: 100%;">
+                <thead>
+                <tr role="row">
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Nom d'equipe
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Nom du projet
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Date de début
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    Date de fin estimée
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 61px;" tabindex="0">
+                    État
+                  </th>
+                  <th aria-controls="dataTable" class="sorting" colspan="1" rowspan="1" style="width: 15%;" tabindex="0">
+                    Action
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngIf="(filteredProjects.length > 0); else noProjects">
+                  <tr *ngFor="let projet of filteredProjects">
+                    <td>{{ projet.equipe?.name || "pas d'equipe"}}</td>
+                    <td>{{ projet.nom }}</td>
+                    <td>{{ projet.dateDebut | date }}</td>
+                    <td>{{ projet.dateFinEstimee | date }}</td>
+                    <td>{{ projet.etat }}</td>
+                    <td>
+                      <a (click)="openUpdateProjet(projet.id)" class="btn btn-success btn-icon-split m-1">
+                          <span class="icon bg-transparent text-white-50">
+                            <i class="fa fa-edit bg-transparent"></i>
+                          </span>
+                        <span class="text">Modifier</span>
+                      </a>
+                      <a (click)="deleteProjet(projet)" class="btn btn-danger m-1 btn-icon-split">
+                          <span class="icon bg-transparent text-white-50">
+                            <i class="fas bg-transparent fa-trash"></i>
+                          </span>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+                </tbody>
+              </table>
+              <ng-template #noProjects>
+                <p>Aucun projet trouvé.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

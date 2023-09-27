@@ -1,0 +1,142 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Modifier Tâche</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <!-- Task Details -->
+        <form (ngSubmit)="updateTache()" [formGroup]="tacheForm" class="mt-5">
+
+          <div class="row">
+            <!-- Task Name -->
+            <div class="form-group w-50">
+              <label class="col-form-label" for="nom">Nom de la tâche</label>
+              <div class="col-sm-10">
+                <input class="form-control" formControlName="name" id="nom" name="nom" placeholder="Nom de la tâche"
+                       required type="text">
+              </div>
+            </div>
+
+            <!-- Task Description -->
+            <div class="form-group w-50">
+              <label class="col-form-label" for="description">Description</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" formControlName="description" id="description" name="description"
+                          placeholder="Description de la tâche" required rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <!-- Task Priority -->
+            <div class="form-group w-50">
+              <label class="col-form-label" for="priorite">Priorité de la tâche </label>
+              <div class="col-sm-10">
+                <select class="form-control" formControlName="priorite" id="priorite" name="priorite" required>
+                  <option value="FAIBLE">Faible</option>
+                  <option value="MOYENNE_FAIBLE">Moyenne Faible</option>
+                  <option value="MOYENNE">Moyenne</option>
+                  <option value="MOYENNE_HAUTE">Moyenne Haute</option>
+                  <option value="ÉLEVÉE">Élevée</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Estimated Finish Date -->
+            <div class="form-group w-50">
+              <label class="col-form-label" for="dateFinEstimee">Date et heure de fin estimée</label>
+              <div class="col-sm-10">
+                <input class="form-control" formControlName="dateFinEstimee" id="dateFinEstimee" name="dateFinEstimee"
+                       placeholder="Date et heure de fin estimée" required type="datetime-local">
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <!-- Task Assignee (User) -->
+            <div class="form-group w-100">
+              <label class="col-form-label" for="employee">Assigner tâche à :</label>
+              <div class="col-sm-10">
+                <ng-select
+                  [compareWith]="compareUsers"
+                  [items]="users"
+                  bindLabel="username"
+                  formControlName="employee"
+                  id="employee"
+                  name="employee"
+                  placeholder="Sélectionner un employé"
+                >
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <hr>
+
+          <!-- Other Attributes (Read-Only) -->
+          <div *ngIf="tache" class="row">
+            <!-- Project Name -->
+            <div class="form-group w-50">
+              <label class="col-form-label">Nom du projet</label>
+              <div>
+                <p class="form-control-static">{{ tache?.projet?.nom || 'Projet non assigné à une équipe' }}</p>
+              </div>
+            </div>
+
+            <!-- Date Assignation -->
+            <div class="form-group w-50">
+              <label class="col-form-label">Date d'assignation</label>
+              <div>
+                <p
+                  class="form-control-static">{{ tache?.dateAssignation ? (tache.dateAssignation | date: 'dd/MM/yyyy HH:mm:ss') : "Tâche pas encore assignée" }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other Attributes (Read-Only) -->
+          <div *ngIf="tache" class="row">
+            <!-- Creation Date -->
+            <div class="form-group w-50">
+              <label class="col-form-label">Date de création</label>
+              <div class="col-sm-10">
+                <p class="form-control-static">{{ tache.dateCreation | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+              </div>
+            </div>
+
+            <!-- Date Fin -->
+            <div class="form-group w-50">
+              <label class="col-form-label">Date de fin</label>
+              <div class="col-sm-10">
+                <p
+                  class="form-control-static">{{ tache.dateFin ? (tache.dateFin | date: 'dd/MM/yyyy HH:mm:ss') : "Tâche pas encore terminée" }}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <!-- Task Status -->
+          <div class="form-group w-50">
+            <label class="col-form-label">La tâche est : {{ tacheForm.value.done ? 'terminée' : 'en cours' }}</label>
+            <div class="col-sm-10">
+              <button (click)="toggleTaskStatus()" [ngClass]="{ 'btn-outline-secondary': !tacheForm.value.done, 'btn-outline-danger': tacheForm.value.done }"
+                      class="btn btn-block"
+                      type="button">
+                {{ tacheForm.value.done ? 'Marquer la tâche comme en cours' : 'Marquer la tâche comme terminée' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit and Cancel Buttons -->
+          <div style="text-align: right; margin-right: 40px;">
+            <button (click)="cancel()" class="btn btn-secondary mt-5 mr-2" type="button">Annuler</button>
+            <button class="btn btn-info mt-5" type="submit">Enregistrer les modifications</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

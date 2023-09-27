@@ -1,0 +1,66 @@
+<div class="container-fluid">&nbsp;
+    <h1 class="h3 mb-2 text-gray-800">Ajouter un Evenement </h1>
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <div class="container-f  px-lg-5 ">
+          <form (ngSubmit)="createNote()" [formGroup]="noteForm" class="mt-5">
+            <div class="row">
+              <div class="form-group w-100">
+                <label class="col-form-label" for="eventName">Name</label>
+                <div class="col-sm-10">
+                  <input class="form-control" formControlName="eventName" id="eventName" name="eventName" placeholder="Event Name.." required type="text">
+                  <div *ngIf="noteForm.controls['eventName'].invalid && noteForm.controls['eventName'].touched" class="text-danger">Name is required.</div>
+                </div>
+              </div>
+            
+              <div class="form-group w-100">
+                <label class="col-form-label" for="type">Type</label>
+                
+                <div class="col-sm-10">
+                  <select id="type" name="type" formControlName="type" class="form-control">
+                    <option *ngFor="let key of enumKeys" [value]="key">{{key}}</option>
+                  </select>
+                  <div *ngIf="noteForm.controls['type'].invalid && noteForm.controls['type'].touched" class="text-danger">Type is required.</div>
+                </div>
+              </div>
+            
+              <div class="form-group col-6">
+                <label class="col-form-label" for="datetime">Event Date and Time</label>
+                <div class="col-sm-10">
+                  <input class="form-control" formControlName="datetime" id="datetime" name="datetime" placeholder="Event Date and Time" required type="datetime-local">
+                  <div *ngIf="noteForm.controls['datetime'].errors?.['dateGreaterThanOrEqualToday'] && noteForm.controls['datetime'].invalid && noteForm.controls['datetime'].touched" class="text-danger">Event Date and Time is required to be greated than today.</div>
+                </div>
+              </div>
+            
+              <div class="form-group mt-2">
+                <label class="col-form-label" for="coordinateur">Coordinateur</label>
+                <div class="col-sm-10">
+                  <select [(ngModel)]="selectedOption" formControlName="coordinateur" class="form-control h-25 custom-select" name="coordinateur" id="coordinateur" required>
+                    <option selected disabled>Selectionner un coordinateur</option>
+                    <option *ngFor="let option of listemployee" [value]="option.id">{{ option.email }}</option>
+                  </select>
+                  <div *ngIf="noteForm.controls['coordinateur'].invalid && noteForm.controls['coordinateur'].touched" class="text-danger">Coordinateur is required.</div>
+                </div>
+              </div>
+            
+              <div class="form-group col-10">
+                <label class="col-form-label">Employees</label>
+                <div class="col-sm-10">
+                  <ng-select [items]="listemployee" bindLabel="email" bindValue="id" [multiple]="true" placeholder="Select Employees" formControlName="selectedUsers">
+                  </ng-select>
+                  <div *ngIf="noteForm.controls['selectedUsers'].invalid && noteForm.controls['selectedUsers'].touched" class="text-danger">Employees are required.</div>
+                </div>
+              </div>
+            </div>
+            
+            <div style="text-align: right;margin-right: 40px;">
+              <button type="submit" class="btn btn-info mt-3" [disabled]="noteForm.invalid">Crée Evenement</button>
+            </div>
+          </form>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  

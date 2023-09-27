@@ -1,0 +1,4 @@
+export enum Poste{
+  INGENIEUR='INGENIEUR',
+  TECHNICIEN='TECHNICIEN',
+}

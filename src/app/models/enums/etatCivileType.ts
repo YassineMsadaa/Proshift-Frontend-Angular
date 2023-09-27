@@ -1,0 +1,2 @@
+export enum EtatCivilType
+    {CELIBATAIRE="CELIBATAIRE",MARIE="MARIE",DIVORCE="DIVORCE"}

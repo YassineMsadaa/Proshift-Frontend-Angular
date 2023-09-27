@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Ajouter une demande</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <form (ngSubmit)="createDemande()" [formGroup]="demandeForm" class="mt-5">
+          <div class="row">
+            <!-- Date début -->
+            <div class="form-group w-25">
+              <label class="col-form-label" for="dateDebut">Date début</label>
+              <div class="col-sm-10">
+                <input class="form-control" formControlName="dateDebut" id="dateDebut" name="dateDebut"
+                       placeholder="Date début" required type="date" [min]="getCurrentDate()" (change)="calculateTotalJours()">
+              </div>
+            </div>
+            <!-- Date fin -->
+            <div class="form-group w-25">
+              <label class="col-form-label" for="dateFin">Date fin</label>
+              <div class="col-sm-10">
+                <input class="form-control" formControlName="dateFin" id="dateFin" name="dateFin"
+                       placeholder="Date fin" required type="date"  [min]="getTomorrowDate()" (change)="calculateTotalJours()">
+              </div>
+            </div>
+            <!-- Total jour -->
+            <div class="form-group w-25">
+              <label class="col-form-label" for="nombrejour">Total jour</label>
+              <div class="col-sm-10">
+                <input class="form-control" disabled id="nombrejour" [value]="nombrejour !== undefined ? nombrejour : 0"
+                       type="text">
+              </div>
+            </div>
+            <!-- Solde congé -->
+            <div class="form-group w-25">
+              <label class="col-form-label" for="soldconge">Solde congé</label>
+              <div class="col-sm-10">
+                <input class="form-control" disabled id="soldconge" [value]="soldConge !== undefined ? soldConge : 0"
+                       type="text">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <!-- Type demande -->
+          <div class="form-group mt-4">
+            <label class="col-form-label" for="typeDemande">Type demande</label>
+            <div class="col-sm-10">
+              <select class="form-control h-25 custom-select" id="typeDemande" formControlName="type" required>
+                <option value="" selected disabled>Selectionner un type</option>
+                <option value="Conge">Congé</option>
+                <option value="Teletravail">Teletravail</option>
+                <option value="Autorisation">Autorisation</option>
+              </select>
+            </div>
+          </div>
+          <!-- Motif -->
+          <div class="form-group mt-4">
+            <label class="col-form-label" for="motif">Motif</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="motif" id="motif" placeholder="(optionnelle) maladie, mission, transport..."
+                     type="text">
+            </div>
+          </div>
+          <hr>
+          <!-- Pièce jointe -->
+          <div class="form-group mt-4">
+            <label class="col-form-label" for="file">Pièce jointe</label>
+            <div class="col-sm-10">
+              <input class="form-control" formControlName="file" id="file" placeholder="(optionnelle) Certificat..."
+                     type="file">
+            </div>
+          </div>
+          <div style="text-align: right; margin-right: 40px;">
+            <button class="btn btn-info mt-5" type="submit">Créer demande</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

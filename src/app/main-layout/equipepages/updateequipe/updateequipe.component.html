@@ -1,0 +1,164 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Modifier une équipe</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <form [formGroup]="equipeForm" class="mt-5">
+          <!-- Equipe Name -->
+          <div class="form-group">
+            <label class="col-form-label" for="name">Nom d'équipe</label>
+            <div class="col-sm-10">
+              <input class="form-control w-25" id="name" name="name" placeholder="Nom d'équipe" required formControlName="name">
+            </div>
+          </div>
+
+          <!-- Date de creation -->
+          <div class="form-group">
+            <label class="col-form-label" for="dateCreation">Date de création</label>
+            <div class="col-sm-10">
+              <input class="form-control w-25" disabled id="dateCreation" [value]="equipeForm.value.dateCreation | date:'dd-MM-yyyy'" type="text">
+            </div>
+          </div>
+        </form>
+        <hr>
+
+        <!-- Liste des projets -->
+        <div class="row">
+          <div class="col-sm-12">
+            <label class="col-form-label" for="dateCreation">Liste des projets</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Liste des projets assignés -->
+          <div class="col-sm-6">
+            <h5 class="mb-1">Liste des projets assignés</h5>
+            <input class="form-control w-50 mb-2" placeholder="Rechercher un projet" [(ngModel)]="projectSearchQuery">
+            <div *ngIf="filterAssignedProjects().length === 0" class="text-muted mt-2">Aucun projet assigné.</div>
+            <div class="table-responsive" style="max-height: 200px;" *ngIf="filterAssignedProjects().length > 0">
+              <table class="table table-bordered" id="projectsAssignedTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th style="position: sticky; top: 0; background: #fff;">Nom du projet</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Chef de projet</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Etat</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Actions</th>
+                </tr>
+                </thead>
+                <tbody style="max-height: 200px; overflow-y: auto;">
+                <tr *ngFor="let projet of filterAssignedProjects()">
+                  <td>{{ projet.nom }}</td>
+                  <td>{{ projet.chef.username }}</td>
+                  <td>{{ projet.etat }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm" (click)="unassignProject(projet)">Désassigner</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Liste des projets non assignés -->
+          <div class="col-sm-6">
+            <h5 class="mb-1">Liste des projets non assignés</h5>
+            <input class="form-control w-50 mb-2" placeholder="Rechercher un projet" [(ngModel)]="unassignedProjectSearchQuery">
+            <div *ngIf="filterUnassignedProjects().length === 0" class="text-muted mt-2">Aucun projet non assigné.</div>
+            <div class="table-responsive" style="max-height: 200px;" *ngIf="filterUnassignedProjects().length > 0">
+              <table class="table table-bordered" id="projectsTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th style="position: sticky; top: 0; background: #fff;">Nom du projet</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Chef de projet</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Etat</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Actions</th>
+                </tr>
+                </thead>
+                <tbody style="max-height: 200px; overflow-y: auto;">
+                <tr *ngFor="let projet of filterUnassignedProjects()">
+                  <td>{{ projet.nom }}</td>
+                  <td>{{ projet.chef.username }}</td>
+                  <td>{{ projet.etat }}</td>
+                  <td>
+                    <button class="btn btn-success btn-sm" (click)="assignProject(projet)">Assigner</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Liste des membres -->
+        <div class="row">
+          <div class="col-sm-12">
+            <label class="col-form-label" for="dateCreation">Liste des membres</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Liste des membres assignés -->
+          <div class="col-sm-6">
+            <h5 class="mb-1">Liste des membres assignés</h5>
+            <input class="form-control w-50 mb-2" placeholder="Rechercher un membre" [(ngModel)]="memberSearchQuery">
+            <div *ngIf="filterAssignedMembers().length === 0" class="text-muted mt-2">Aucun membre assigné.</div>
+            <div class="table-responsive" style="max-height: 200px;" *ngIf="filterAssignedMembers().length > 0">
+              <table class="table table-bordered" id="membersAssignedTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th style="position: sticky; top: 0; background: #fff;">Nom d'utilisateur</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Département</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Actions</th>
+                </tr>
+                </thead>
+                <tbody style="max-height: 200px; overflow-y: auto;">
+                <tr *ngFor="let employee of filterAssignedMembers()">
+                  <td>{{ employee.username }}</td>
+                  <td>{{ employee.departement }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm" (click)="unassignMember(employee)">Désassigner</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Liste des membres non assignés -->
+          <div class="col-sm-6">
+            <h5 class="mb-1">Liste des membres non assignés</h5>
+            <input class="form-control w-50 mb-2" placeholder="Rechercher un membre" [(ngModel)]="unassignedMemberSearchQuery">
+            <div *ngIf="filterUnassignedMembers().length === 0" class="text-muted mt-2">Aucun membre non assigné.</div>
+            <div class="table-responsive" style="max-height: 200px;" *ngIf="filterUnassignedMembers().length > 0">
+              <table class="table table-bordered" id="membersTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th style="position: sticky; top: 0; background: #fff;">Nom d'utilisateur</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Département</th>
+                  <th style="position: sticky; top: 0; background: #fff;">Actions</th>
+                </tr>
+                </thead>
+                <tbody style="max-height: 200px; overflow-y: auto;">
+                <tr *ngFor="let employee of filterUnassignedMembers()">
+                  <td>{{ employee.username }}</td>
+                  <td>{{ employee.departement }}</td>
+                  <td>
+                    <button class="btn btn-success btn-sm" (click)="assignMember(employee)">Assigner</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: right; margin-right: 40px;">
+          <button class="btn btn-secondary mt-3" (click)="cancel()">Annuler</button>
+          <button class="btn btn-success mt-3 ml-2" (click)="updateEquipe()" type="button">Mettre à jour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

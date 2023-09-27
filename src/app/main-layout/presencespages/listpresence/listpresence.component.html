@@ -1,0 +1,122 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Liste des présences</h1>
+
+  <!-- Tabbed Navigation -->
+  <ul class="nav nav-tabs mt-3">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="currentSheet === 'sheet1'" (click)="selectSheet('sheet1')">Sheet 1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="currentSheet === 'sheet2'" (click)="selectSheet('sheet2')">Sheet 2</a>
+    </li>
+  </ul>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <!-- Filter options -->
+    <div class="row mt-3">
+      <div class="col-md-3 ml-3">
+        <!-- Filter by date for Sheet 1 -->
+        <div *ngIf="currentSheet === 'sheet1'">
+          <div class="form-group">
+            <label for="dateFilterSheet1">Filtrer par date</label>
+            <input type="date" class="form-control" id="dateFilterSheet1" [(ngModel)]="selectedDateSheet1" (change)="filterPresencesSheet1()"
+                   [max]="getCurrentDate()" (ngModelChange)="onDateChangeSheet1($event)">
+          </div>
+        </div>
+
+        <!-- Filter by date for Sheet 2 -->
+        <div *ngIf="currentSheet === 'sheet2'">
+          <div class="form-group">
+            <label for="dateFilterSheet2">Filtrer par date</label>
+            <input type="date" class="form-control" id="dateFilterSheet2" [(ngModel)]="selectedDateSheet2" (change)="filterPresencesSheet2()"
+                   [max]="getCurrentDate()" (ngModelChange)="onDateChangeSheet2($event)">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+
+        <!-- Filter by username for Sheet 1 -->
+        <div *ngIf="currentSheet === 'sheet1'">
+          <div class="form-group">
+            <label for="usernameSearchSheet1">Rechercher par nom d'utilisateur</label>
+            <input type="text" class="form-control" id="usernameSearchSheet1" [(ngModel)]="searchUsernameSheet1"
+                   (input)="filterPresencesSheet1()">
+          </div>
+        </div>
+
+        <!-- Filter by username for Sheet 2 -->
+        <div *ngIf="currentSheet === 'sheet2'">
+          <div class="form-group">
+            <label for="usernameSearchSheet2">Rechercher par nom d'utilisateur</label>
+            <input type="text" class="form-control" id="usernameSearchSheet2" [(ngModel)]="searchUsernameSheet2"
+                   (input)="filterPresencesSheet2()">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Table for Sheet 1 -->
+      <div *ngIf="currentSheet === 'sheet1'">
+        <div class="table">
+          <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-bordered dataTable" id="dataTable" role="grid" style="width: 100%;">
+                  <thead>
+                  <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Employee</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Total des heures travaillées</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">État</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of filteredPresencesSheet1">
+                    <td>{{ item.user.username }}</td>
+                    <td>{{ item.totalWorkedHours | timeFormat }}</td>
+                    <td>{{ getPresenceEtat(item.totalWorkedHours) }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table for Sheet 2 -->
+      <div *ngIf="currentSheet === 'sheet2'">
+        <div class="table">
+          <div class="dataTables_wrapper dt-bootstrap4" id="dataTable_wrapper">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-bordered dataTable" id="dataTable" role="grid" style="width: 100%;">
+                  <thead>
+                  <tr role="row">
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Employee</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Date</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Heure d'entrée</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Heure de sortie</th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">Heures travaillées</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let presence of filteredPresencesSheet2">
+                    <td>{{ presence.user.username }}</td>
+                    <td>{{ presence.dateCreation | dateOnly }}</td>
+                    <td>{{ presence.checkInTime | timeOnly }}</td>
+                    <td>{{ presence.checkOutTime | timeOnly }}</td>
+                    <td>{{ presence.hoursWorked | timeFormat }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

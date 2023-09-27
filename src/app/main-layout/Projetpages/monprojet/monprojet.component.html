@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Mon Projet</h1>
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container-px-lg-5">
+        <!-- Équipe -->
+        <div class="form-group ">
+          <label class="col-form-label" for="equipe">Équipe</label>
+          <div class="col-sm-10">
+            <label class="h4" id="equipe" *ngIf="projet">
+              {{ projet.equipe?.name || "Projet non assigné à une équipe" }}
+            </label>
+          </div>
+        </div>
+        <hr>
+        <!-- Project Details -->
+        <div class="row">
+          <div class="col">
+
+            <!-- Project Name -->
+            <div class="form-group ">
+              <label class="col-form-label" >Nom du projet</label>
+              <div class="col-sm-10">
+                <label class="h5" *ngIf="projet">{{ projet.nom }}</label>
+              </div>
+            </div>
+
+            <!-- Date Debut -->
+            <div class="form-group ">
+              <label class="col-form-label">Date Debut</label>
+              <div class="col-sm-10">
+                <label class="h5" *ngIf="projet">{{projet.dateDebut | date: 'yyyy-MM-dd HH:mm:ss'}}</label>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group  ">
+              <label class="col-form-label" >Description</label>
+              <div class="col-sm-10">
+                <p *ngIf="projet">{{ projet.description}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+
+            <!-- Chef -->
+            <div class="form-group">
+              <label class="col-form-label" >Chef du projet</label>
+              <div class="col-sm-10">
+                <label class="h5" *ngIf="projet">
+                  {{ projet.chef.username || "Non assigné" }}
+                </label>
+              </div>
+            </div>
+
+            <!-- Date Fin Estimée -->
+            <div class="form-group ">
+              <label class="col-form-label" >Date Fin Estimée</label>
+              <div class="col-sm-10">
+                <label class="h5" *ngIf="projet">{{ projet.dateFinEstimee | date: 'yyyy-MM-dd HH:mm:ss'}}</label>
+              </div>
+            </div>
+
+            <!-- Etat -->
+            <div class="form-group  ">
+              <label class="col-form-label" >État</label>
+              <div class="col-sm-10">
+                <label class="h5" *ngIf="projet">{{ projet.etat }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <!-- Other Attributes (Read-Only) -->
+        <div *ngIf="projet" class="row">
+          <!-- Creation Date -->
+          <div class="form-group col ">
+            <label class="col-form-label">Date Création</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ projet.dateCreation | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+            </div>
+          </div>
+
+          <!-- Date Fin -->
+          <div class="form-group col">
+            <label class="col-form-label">Date fin</label>
+            <div class="col-sm-10">
+              <p
+                class="form-control-static">{{ projet.dateFin ? (projet.dateFin | date: 'dd/MM/yyyy HH:mm:ss') : "Projet pas encore terminée" }}</p>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <div class="form-group col ">
+            <div class="col-sm-10">
+              <button class="btn btn-secondary" type="button" (click)="cancel()">retour</button>
+            </div>
+          </div>
+        </div>
+        <!-- Tasks Table -->
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Date Assignation</th>
+            <th>Date Fin Estimée</th>
+            <th>Priorité</th>
+            <th>Terminé</th>
+            <th>Employé</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="filteredTaches.length > 0; else noTasks">
+            <tr *ngFor="let tache of filteredTaches">
+              <td>{{ tache.name }}</td>
+              <td>{{ tache.dateAssignation | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.dateFinEstimee | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+              <td>{{ tache.priorite }}</td>
+              <td>{{ tache.done ? 'Oui' : 'Non' }}</td>
+              <td>{{ tache.employee?.username }}</td>
+              <td>
+                <a (click)="openTache(tache)" class="btn btn-success btn-icon-split m-1">
+                          <span class="icon bg-transparent text-white-50">
+                            <i class="fa fa-search bg-transparent"></i>
+                          </span>
+                  <span class="text">Consulter</span>
+                </a>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+        <!-- No Tasks Message -->
+        <ng-template #noTasks>
+          <p>Aucune tâche trouvée.</p>
+        </ng-template>
+
+        <div class="row">
+          <div class="form-group col ">
+            <div class="col-sm-10">
+              <button class="btn btn-secondary" type="button" (click)="cancel()">retour</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

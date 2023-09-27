@@ -1,0 +1,2 @@
+export enum DepartementType
+    {RH="RH",DEVELOPPEMENT="DEVELOPPEMENT",FINANCE="FINANCE"}
